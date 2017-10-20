@@ -42,6 +42,9 @@ public class TestData {
         dataArrayList.clear();
         groupDataArrayList.add(groupData);
 
+        groupData = new GroupData("東漢");
+        groupDataArrayList.add(groupData);
+
         return groupDataArrayList;
     }
 

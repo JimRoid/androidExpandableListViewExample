@@ -52,8 +52,13 @@ public class EasyExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public ChildData getChild(int groupPosition, int childPosition) {
-        return group.get(groupPosition).getChildDataArrayList().get(childPosition);
+        if (group.get(groupPosition).getChildDataArrayList().size() > 0) {
+            ChildData childData = group.get(groupPosition).getChildDataArrayList().get(childPosition);
+            return childData;
+        }
+        return null;
     }
+
 
     @Override
     public long getGroupId(int groupPosition) {
@@ -90,6 +95,14 @@ public class EasyExpandableListAdapter extends BaseExpandableListAdapter {
         } else {
             viewHolder = (GroupViewHolder) view.getTag();
         }
+
+        //隱藏 group indicator
+        if (getGroup(groupPosition).getChildDataArrayList().size() == 0) {
+            viewHolder.ivGroupIndicator.setVisibility(View.GONE);
+        } else {
+            viewHolder.ivGroupIndicator.setVisibility(View.VISIBLE);
+        }
+
         viewHolder.ivGroupIndicator.setSelected(isExpanded);
         viewHolder.tvName.setText(getGroup(groupPosition).getName());
         return view;
@@ -107,7 +120,9 @@ public class EasyExpandableListAdapter extends BaseExpandableListAdapter {
         } else {
             viewHolder = (ChildViewHolder) view.getTag();
         }
-        viewHolder.tvName.setText(getChild(groupPosition, childPosition).getName());
+        if (getChild(groupPosition, childPosition) != null) {
+            viewHolder.tvName.setText(getChild(groupPosition, childPosition).getName());
+        }
         return view;
     }
 

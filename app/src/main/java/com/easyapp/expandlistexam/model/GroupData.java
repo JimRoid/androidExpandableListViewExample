@@ -14,6 +14,12 @@ public class GroupData {
         super();
     }
 
+    public GroupData(String name) {
+        super();
+        setName(name);
+        childDataArrayList = new ArrayList<>();
+    }
+
     public GroupData(String name, ArrayList<ChildData> dataArrayList) {
         super();
         setName(name);

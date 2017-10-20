@@ -19,6 +19,23 @@ public class MainActivity extends AppCompatActivity {
 
         ExpandableListView expandListView = (ExpandableListView) findViewById(R.id.expandListView);
         expandListView.setAdapter(easyExpandableListAdapter);
+
+        //設定能不能收合
+        expandListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (easyExpandableListAdapter.getGroup(groupPosition).getChildDataArrayList().size() > 0) {
+                    //child 大於 0 可以收合
+                    return false;
+                } else {
+                    //沒有child不能收合
+                    show("沒有子項目");
+                    return true;
+                }
+            }
+        });
+
+        // child listener
         expandListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
